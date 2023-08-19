@@ -1,18 +1,16 @@
 input.onButtonPressed(Button.A, function () {
     pressA = true
-    if (checkTurn()) {
+    if (checkTurn(y >= 0)) {
         y += -1
-    } else if (checkTurn()) {
+    } else if (checkTurn(y < 5)) {
         y += 1
-    } else {
-    	
     }
 })
 input.onGesture(Gesture.TiltLeft, function () {
     turn = true
 })
-function checkTurn () {
-    return turn && y >= 0 ? true : turn && y < 5 ? true : false
+function checkTurn (limit: boolean) {
+    return turn && limit
 }
 input.onButtonPressed(Button.B, function () {
     pressB = true
@@ -20,8 +18,6 @@ input.onButtonPressed(Button.B, function () {
         x += -1
     } else if (!(turn) && x < 5) {
         x += 1
-    } else {
-    	
     }
 })
 input.onGesture(Gesture.TiltRight, function () {
@@ -30,9 +26,9 @@ input.onGesture(Gesture.TiltRight, function () {
 let j = 0
 let i = 0
 let pressB = false
+let y = 0
 let x = 0
 let pressA = false
-let y = 0
 let turn = false
 turn = false
 pressA = false
@@ -51,8 +47,6 @@ basic.forever(function () {
             j += -1
             led.plot(x, y)
             led.unplot(i, j)
-        } else {
-        	
         }
     } else if (pressB) {
         if (turn && x >= 0) {
@@ -63,11 +57,7 @@ basic.forever(function () {
             i += -1
             led.plot(x, y)
             led.unplot(i, j)
-        } else {
-        	
         }
-    } else {
-    	
     }
     pressA = false
 })
